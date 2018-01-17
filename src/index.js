@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 
 const API_KEY = 'AIzaSyAqfTWXS2_IHZxJTzv0VRR1XtAphwCBFwM';
 
-YTSearch({key:API_KEY, term:'surfboards'}, function(data) {
-  console.log(data);
-});
+// YTSearch({key:API_KEY, term:'surfboards'}, function(data) {
+//   console.log(data);
+// });
 
 // Note: there should only ever be one component per file
 
 /*Create a new component to produce HTML
 In react, instead of function (), we use () =>
 */
-const App = () => {
-  return <div>
-    <SearchBar />
-  </div>;
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { videos: [] };
+    // we can name state anything we want. in this case calling it videos makes sense.
+    
+    YTSearch({key:API_KEY, term:'surfboards'}, (videos) => {
+      this.setState( videos );
+      // because key is videos and value is videos, ES6 allows us to just put videos once in the setState function. 
+      // Everytime an instance of app runs we run this video search and set state to data. 
+    });
+  }
+  render() {
+    return <div>
+      <SearchBar />
+    </div>;
+  }
 }
 
 /*Take this component's generated HTML and put it on the page (in the DOM)
