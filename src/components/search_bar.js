@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 /*
 Usually we have a functional component (indeed it is just a function that returns HTML)
@@ -13,13 +13,30 @@ Define a new class called SearchBar and give it all the functionality from React
 */
 
 /*
-Any class has a state
-- any time a state is updated, the class re renders
+Any class has a state object
+- any time a component's state is change, the componet and its children re renders
+- constructor functions are auto called when a new instance of a component is created
+- it is good for initializing variables and state
+- the super is calling the parent of component
+- this.state is initialized with properties we want to track
+- to change state awlways use this.setState();
+- we actually want controller components, which means the value of the input is defined by the state
 
 */
-class SearchBar extends React.Component {
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { term: '' };
+  }
   render() {
-    return <input onChange={event => console.log(event.target.value)}/>;
+    return (
+      <div>
+        <input
+          value={this.state.term}
+          onChange={event => this.setState({ term:event.target.value })}
+        />
+      </div>
+    );
   }
 
   // setting up an event handler for input
