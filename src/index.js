@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list.js';
 
 const API_KEY = 'AIzaSyAqfTWXS2_IHZxJTzv0VRR1XtAphwCBFwM';
 
@@ -14,6 +15,7 @@ const API_KEY = 'AIzaSyAqfTWXS2_IHZxJTzv0VRR1XtAphwCBFwM';
 /*Create a new component to produce HTML
 In react, instead of function (), we use () =>
 */
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ class App extends Component {
     // we can name state anything we want. in this case calling it videos makes sense.
     
     YTSearch({key:API_KEY, term:'surfboards'}, (videos) => {
-      this.setState( videos );
+      this.setState({ videos });
       // because key is videos and value is videos, ES6 allows us to just put videos once in the setState function. 
       // Everytime an instance of app runs we run this video search and set state to data. 
     });
@@ -29,9 +31,15 @@ class App extends Component {
   render() {
     return <div>
       <SearchBar />
+      <VideoList videos={this.state.videos} /> 
     </div>;
   }
+  /* Here we are passing the state (videos) created in App to VideoList which is known as passing a prop, we are passing prop videos to videolist
+   Anytime App re-renders, VideoList gets the new update props as an argument to the VideoList functional component
+   note: for a functional component, props is an argument, for a class component, it is available as this.props if defined by a parent component 
+   */
 }
+
 
 /*Take this component's generated HTML and put it on the page (in the DOM)
 Don't use React.render
