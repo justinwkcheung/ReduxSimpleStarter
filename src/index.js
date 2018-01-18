@@ -22,7 +22,7 @@ class App extends Component {
     this.state = { videos: [] };
     // we can name state anything we want. in this case calling it videos makes sense.
     
-    YTSearch({key:API_KEY, term:'surfboards'}, (videos) => {
+    YTSearch({key:API_KEY, term:'stuckmann'}, (videos) => {
       this.setState({ videos });
       // because key is videos and value is videos, ES6 allows us to just put videos once in the setState function. 
       // Everytime an instance of app runs we run this video search and set state to data. 
