@@ -1,10 +1,10 @@
 import React from 'react';
 
 // ({ video }) is equal to -----> const video = props.video, its an ES6 shortcut; 
-const VideoListItem = ({video}) => {
+const VideoListItem = ({video, onVideoSelect}) => {
   const imageUrl = video.snippet.thumbnails.default.url;
   return (
-    <li className='list-group-item'>
+    <li onClick={() => onVideoSelect(video)} className='list-group-item'>
       <div className='video-list media'>
         <div className='media-left'>
           <img className='media-object' src={imageUrl} />
